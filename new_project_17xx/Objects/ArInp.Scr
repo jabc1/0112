@@ -1,0 +1,22 @@
+--create .\Objects\Mylib.lib
+.\objects\lpc17xx_it.o
+.\objects\startup_lpc17xx.o
+.\objects\lpc17xx_timer.o
+.\objects\debug_frmwrk.o
+.\objects\lpc17xx_clkpwr.o
+.\objects\lpc17xx_gpio.o
+.\objects\lpc17xx_libcfg_default.o
+.\objects\lpc17xx_mcpwm.o
+.\objects\lpc17xx_systick.o
+.\objects\lpc17xx_uart.o
+.\objects\lpc17xx_pinsel.o
+.\objects\lpc17xx_spi.o
+.\objects\lpc17xx_ssp.o
+.\objects\fifo.o
+.\objects\thread.o
+.\objects\runflag.o
+.\objects\gpio.o
+.\objects\time.o
+.\objects\main.o
+.\objects\system_lpc17xx.o
+.\objects\spi.o
