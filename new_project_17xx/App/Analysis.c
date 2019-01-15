@@ -19,8 +19,8 @@ u8 Analysis_function(u8 *cmdtype,u8 *datatype,u8 *outdata,u8 *indata,u8 *len)
 	_Pack *pbuff;
 	u16 crc_temp;
 	u16 *crc;
-	u8 *crc1,*crc2;
-	u8 temp1,temp2;
+//	u8 *crc1,*crc2;
+//	u8 temp1,temp2;
 	pbuff = (_Pack *)indata;
 	if((pbuff->head != HEAD)||(pbuff->softver != Soft_ver))
 	{

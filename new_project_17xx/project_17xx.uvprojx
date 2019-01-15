@@ -467,6 +467,11 @@
               <FileType>1</FileType>
               <FilePath>.\Lib\source\lpc17xx_ssp.c</FilePath>
             </File>
+            <File>
+              <FileName>lpc17xx_wdt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Lib\source\lpc17xx_wdt.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -492,6 +497,11 @@
         <Group>
           <GroupName>Sys</GroupName>
           <Files>
+            <File>
+              <FileName>base.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Sys\base.h</FilePath>
+            </File>
             <File>
               <FileName>runflag.c</FileName>
               <FileType>1</FileType>
@@ -541,6 +551,16 @@
               <FileName>delay.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Sys\delay.h</FilePath>
+            </File>
+            <File>
+              <FileName>wdt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sys\wdt.c</FilePath>
+            </File>
+            <File>
+              <FileName>wdt.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Sys\wdt.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -616,6 +636,16 @@
               <FileName>crc.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\App\crc.h</FilePath>
+            </File>
+            <File>
+              <FileName>Bluetooth.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\App\Bluetooth.c</FilePath>
+            </File>
+            <File>
+              <FileName>Bluetooth.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\App\Bluetooth.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -15,15 +15,15 @@ Modify Time:
 * @file    runflag.c
 * @author  Jason
 * @date    2018/10/27
-* @brief   产生定时标志位
+* @brief   产生软件定时器
 ******************************************************************************
 */
 #define TICK_FREQ       1000
 #define TICK_CNT_FREQ   SYS_CLK
 #define TICK_PERIOD     (TICK_CNT_FREQ/TICK_FREQ)
 
-static uint8_t PriorityFlag;
-static uint32_t RunTick;
+static u8 PriorityFlag;
+static u32 RunTick;
 RunFlag_Type RunFlag;
 extern volatile unsigned long SysTickCnt;
 #define FREQ_FLAG_INIT(freq) do{ \
@@ -33,7 +33,7 @@ extern volatile unsigned long SysTickCnt;
 
 #define FREQ_FLAG(freq) FreqCalc(TICK_FREQ/freq, &(RunFlag.Hz##freq), &(RunFlag.Hz##freq##Tick))
 
-void FreqCalc(uint32_t FreqFactor, uint8_t* pFlag, uint32_t* pTick)
+void FreqCalc(u32 FreqFactor, u8* pFlag, u32* pTick)
 {
 	if(!PriorityFlag && RunTick - *pTick >= FreqFactor)
 	{
@@ -53,7 +53,7 @@ void FreqCalc(uint32_t FreqFactor, uint8_t* pFlag, uint32_t* pTick)
 void RunFlagInit(void)
 {
 	uint32_t tick = SysTickCnt;
-	FREQ_FLAG_INIT(1);//1hz
+	FREQ_FLAG_INIT(1);
 	FREQ_FLAG_INIT(4);
 	FREQ_FLAG_INIT(10);
 	FREQ_FLAG_INIT(20);
@@ -61,7 +61,7 @@ void RunFlagInit(void)
 	FREQ_FLAG_INIT(100);
 	FREQ_FLAG_INIT(250);
 	FREQ_FLAG_INIT(500);
-	FREQ_FLAG_INIT(1000);//
+	FREQ_FLAG_INIT(1000);
 }
 
 void RunFlagHandler(void)

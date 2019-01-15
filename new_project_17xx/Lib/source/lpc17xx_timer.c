@@ -360,7 +360,7 @@ void TIM_Init(LPC_TIM_TypeDef *TIMx, TIM_MODE_OPT TimerCounterMode, void *TIM_Co
 
 	// Clear interrupt pending
 	TIMx->IR = 0xFFFFFFFF;
-
+	TIMx->TCR |= (1<<0); 
 }
 
 /*********************************************************************//**

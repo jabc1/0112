@@ -260,10 +260,10 @@ void LPC17XXSPI_Process()
 		break;
 		case SPISTATUS_RECVPROCESS://接收buff处理
 		{
-//			if(memcmp((uint8_t *)"jason test", ucSPIRxBuffer, 10)==0)
-//			{
-//				;
-//			}
+			if(memcmp((uint8_t *)"jason test", ucSPIRxBuffer, 10)==0)
+			{
+				;
+			}
 			ucErrTimes = 0;
 			memset(ucSPIRxBuffer, 0, SPI_BUFFERSIZE);
 			++ucSPIIndex;

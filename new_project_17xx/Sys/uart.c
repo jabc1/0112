@@ -16,10 +16,6 @@ Modify Time:
 #include "stdio.h"
 #include "memory.h"
 #include "fifo.h"
-
-//u32 UART3Status;
-
-
 void EnableIrq()
 {
 	__enable_irq();
@@ -35,10 +31,10 @@ void Send_Data(char *buf,uint32_t len)
 	uint16_t  t;
 	for(t=0;t<len;t++)
 	{
-		while (!(LPC_UART3->LSR & 0x20));
-		(LPC_UART3->THR = buf[t]); 
+		while (!(LPC_UART0->LSR & 0x20));
+		(LPC_UART0->THR = buf[t]); 
 	}
-	while (!(LPC_UART3->LSR & 0x20));
+	while (!(LPC_UART0->LSR & 0x20));
 }
 
 void USART3_Printf(const char *fmt, ...)
@@ -109,7 +105,7 @@ void UART0_IRQHandler(void)
 	if((UART_GetLineStatus(LPC_UART0)&0x01))//读取LSR时中断会被清除
 	{
 		temp = UART_ReceiveByte(LPC_UART0);
-//		fifo_putc(&BleCache,temp);
+		fifo_putc(&BleCache,temp);
 	}
 
 }
@@ -169,7 +165,6 @@ void UART3_IRQHandler (void)
 	uint8_t LSRValue;
 	uint8_t Dummy = Dummy;
 	uint8_t temp;
-	uint8_t i;
 	while(((IIRValue = LPC_UART3->IIR) & 0x01) == 0)
 	{
 		IIRValue >>= 1;
@@ -185,7 +180,7 @@ void UART3_IRQHandler (void)
 					Dummy = LPC_UART3->RBR; //错误数据放入变量中
 					return;
 				}
-				if ( LSRValue & LSR_RDR )   //数据可用
+				if ( LSRValue & LSR_RDR )//数据可用
 				{
 					temp = LPC_UART3->RBR;
 					fifo_putc(&BleCache,temp);

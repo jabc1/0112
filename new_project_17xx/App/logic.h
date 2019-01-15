@@ -19,7 +19,7 @@ extern _DATA	Data;
 
 void CacheRxProcess(void);
 void CacheTxProcess(void);
-void BluetoothProcess(void);
+void QueryProcess(void);
 void Uart3Process(void);
 u8 target_fun(u8 datatype,u8 *data);
 

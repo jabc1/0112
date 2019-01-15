@@ -17,6 +17,7 @@ Modify Time:
 #include "spi.h"
 #include "runflag.h"
 #include "time.h"
+#include "wdt.h"
 #include "Thread.h"
 #include "fifo.h"
 #include "memory.h"
@@ -24,37 +25,41 @@ Modify Time:
 #include "logic.h"
 #include "uart.h"
 #include "delay.h"
+#include "Bluetooth.h"
 
 int main(void)
 {
 	SystemInit();
 	SysTickInit();
-//	Timer_Timer0Init(25,1000);//1ms
+	Timer_Timer0Init(25,1000);//1ms
 	LPC_GPIO_init();
 	uart_config0(115200);
 	uart_config3(115200);
 	Init_fifo();
 	RunFlagInit();
 	Thread_Init();
-	Thread_Login(FOREVER, 0, 100, &CacheRxProcess);//缓存接收进程
-	Thread_Login(FOREVER, 0, 180, &CacheTxProcess);//缓存发送进程
-	Thread_Login(FOREVER, 0, 200, &BluetoothProcess);//蓝牙进程
-	Thread_Login(FOREVER, 0, 150, &Uart3Process);//蓝牙进程
+	Bluetooth_init();
+	Thread_Login(FOREVER, 0, 10, &CacheRxProcess);//缓存接收进程
+	Thread_Login(FOREVER, 0, 20, &CacheTxProcess);//缓存发送进程
+	Thread_Login(FOREVER, 0, 30, &QueryProcess);//询问进程
+//	Thread_Login(FOREVER, 0, 40, &Uart3Process);//蓝牙发送进程
+	wdt_config();//超市不喂狗系统重启
 	printf("System start!!!");
+	//USART3_Printf("uart0 printf");
 	while(1)
 	{
 		LPC17XXSPI_Process();//主进程
-		RunFlagHandler();
 		Thread_Process();
-		if(RunFlag.Hz4)
+		RunFlagHandler();
+		ble_function();
+		get_ble_status();
+		if(RunFlag.Hz10)
 		{
-			static u8 flag = 0;
-			flag = !flag;
-			(flag ? SET_GPIO_H(LED2):SET_GPIO_L(LED2));
-			//printf("uart3test");
+			LED_toggle();
+			//USART3_Printf("uart0 printf");
 		}
+		WDT_Feed();
 	}
-	return 1;
 }
 
 

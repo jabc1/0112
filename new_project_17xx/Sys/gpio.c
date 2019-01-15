@@ -13,7 +13,12 @@ void LPC_GPIO_init()
 {
 	SET_GPIO_OUT(LED2);
 }
-
+void LED_toggle()
+{
+	static u8 flag = 0;
+	flag = !flag;
+	(flag ? SET_GPIO_H(LED2):SET_GPIO_L(LED2));
+}
 
 
 

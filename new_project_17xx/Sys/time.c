@@ -1,6 +1,6 @@
 /************Copyright(C) Kaikai Technology 2018-05-14***********************
 File name  : time.c
-Description: Ö÷ÒªÊµÏÖÏµÍ³¶¨Ê±Æ÷³õÊ¼»¯
+Description: Ö÷ÒªÊµÏÖÏµÍ³¶¨Ê±Æ÷³õÊ¼»¯,Ê¹ÓÃ¿âº¯Êý¸ã²»¶¨£¬³­ÁËÒ»¶Î¼Ä´æÆ÷
 Platform   : MDK V5.26.0.0
 Version    : V1.0
 Author	   : Jason
@@ -13,8 +13,7 @@ Modify Time:
 #include "Thread.h"
 extern volatile uint16_t usDelayms;
 volatile unsigned long SysTickCnt;
-u32 Systick11;
-uint16_t us1Ms = 0;
+u16 Systick_delay;
 /******************************************************************************
  * º¯ÊýÃû³Æ:   void Timer_Timer0Init()
  * ¹¦ÄÜÃèÊö:   1ms¶¨Ê±Æ÷
@@ -45,15 +44,12 @@ void Timer_Timer0Init(uint32_t clk, uint32_t howtime)//À¬»ø¶¨Ê±Æ÷£¬¿Óµù°¡£¬Äã°ÑÊ
 	NVIC_SetPriority(TIMER0_IRQn, ((0x01<<3)|0x01));  //ÉèÖÃ¶¨Ê±Æ÷ÖÐ¶ÏÓÅÏÈ¼¶
 	NVIC_EnableIRQ(TIMER0_IRQn);   //¶¨Ê±Æ÷ÖÐ¶ÏÊ¹ÄÜ
 	LPC_TIM0->TCR |=(1<<0);  //Æô¶¯¶¨Ê±Æ÷
-
 }
 void TIMER0_IRQHandler(void)
 {
-//	static uint8_t flag = 0;
 	if(TIM_GetIntStatus(LPC_TIM0, TIM_MR0_INT)== SET)
 	{
-//		flag = !flag;
-//		(flag == 1)?SET_GPIO_H(LED2):SET_GPIO_L(LED2);
+		;//LED_toggle();
 	}
 	TIM_ClearIntPending(LPC_TIM0, TIM_MR0_INT);
 }
@@ -62,16 +58,15 @@ void TIMER0_IRQHandler(void)
 
 void SysTickInit(void)
 {
-	SysTick->LOAD = 99999;
-	SysTick->CTRL = 7;
+	SYSTICK_InternalInit(1);//ÏµÍ³Ê±ÖÓ³õÊ¼»¯,1ºÁÃëÒ»´ÎÖÐ¶Ï
+	SYSTICK_IntCmd(ENABLE);//Ê¹ÄÜÖÐ¶Ï
+	SYSTICK_Cmd(ENABLE);//Ê¹ÄÜ
 }
 void SysTick_Handler(void)//1ms
 {
-	++us1Ms;
 	SysTickCnt++;
-	Systick11++;
+	Systick_delay++;
 	Thread_RunCheck();
-	us1Ms%=100;
 	if(usDelayms) 
 	{
 		usDelayms--;

@@ -17,6 +17,8 @@ Modify Time:
 #include "Analysis.h"
 #include "gpio.h"
 #include "uart.h"
+#include "Bluetooth.h"
+
 _DATA	Data;//进行记录处理
 _Pack	Pack;//协议包
 /*
@@ -47,11 +49,11 @@ void CacheRxProcess()
 		}
 	}
 }
-
 u8 target_fun(u8 datatype,u8 *data)
 {
 //	u8 temp;
-	Unpack_target(datatype,data,7);
+//	Unpack_target(datatype,data,7);
+	ble_target_unpack(datatype,data,7);
 //	temp = datatype;
 //	switch(temp)
 //	{
@@ -81,12 +83,12 @@ void CacheTxProcess()//1754发送信息给51822查询是否有数据上报
 		{
 			memset(ucSPITxBuffer,0,sizeof(ucSPITxBuffer));
 			memcpy(ucSPITxBuffer,tbuff,8);//发送命令
-//			usDataSended = 100;
+			usDataSended = 50;
 //			printf("%s",ucSPITxBuffer);
 		}
 	}
 }
-void BluetoothProcess()
+void QueryProcess()
 {
 	static u8 buff[1] = {0};
 	if(buff[0]++ >=4)
@@ -101,17 +103,17 @@ void Uart3Process()
 	u8 tbuff[20];
 	if(!fifo_empty(&UartCache))
 	{
-		memset(tbuff,0,sizeof(tbuff));
-		if(info_out_fifo(&UartCache,&temp,&tbuff[0]))//标签信息处理
-		{
-			printf("%s",tbuff);
-		}
+//		memset(tbuff,0,sizeof(tbuff));
+//		if(info_out_fifo(&UartCache,&temp,&tbuff[0]))//标签信息处理
+//		{
+//			printf("%s",tbuff);
+//		}
 	}
-	if(!fifo_empty(&BleCache))//测试蓝牙连接fifo，如果蓝牙连接成功则重新初始化fifo
-	{
-		fifo_getc(&BleCache,&temp1);
-		printf("%c",temp1);
-	}
+//	if(!fifo_empty(&BleCache))//测试蓝牙连接fifo，如果蓝牙连接成功则重新初始化fifo
+//	{
+//		fifo_getc(&BleCache,&temp1);
+//		printf("%c",temp1);
+//	}
 }
 
 

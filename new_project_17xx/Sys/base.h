@@ -1,3 +1,13 @@
+/************Copyright(C) Kaikai Technology 2018-05-14***********************
+File name  : base.h
+Description: 主要实现数据类型重定义，方便使用
+Platform   : MDK V5.26.0.0
+Version    : V1.0
+Author	   : Jason
+Create Time: 2018-05-14
+Modify	   : 
+Modify Time: 
+******************************************************************************/
 #ifndef __BASE_H__
 #define __BASE_H__
 

@@ -9,7 +9,7 @@ Modify	   :
 Modify Time: 
 ******************************************************************************/
 #include "delay.h"
-extern u32 Systick11;
+extern u16 Systick_delay;
 void delay_50us(u16 n)
 {
 	u16 i,j;
@@ -43,8 +43,8 @@ void Delay_ms(u16 n)
 void Tick_delay_ms(u16 tick) 
 {
 	u16 systickcnt;
-	systickcnt = Systick11;
-	while ((Systick11 - systickcnt) < tick);
+	systickcnt = Systick_delay;
+	while ((Systick_delay - systickcnt) < tick);
 }
 
 
