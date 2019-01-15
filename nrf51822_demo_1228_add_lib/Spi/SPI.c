@@ -96,6 +96,7 @@ void spis_process(void)
 			if(!spis_xfer_done)
 			{
 				__WFE();
+				//memset(m_tx_buf,0,sizeof(m_tx_buf));
 			}
 			else 
 			{

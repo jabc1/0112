@@ -36,10 +36,6 @@ void RF_function()
 		data_decrypt(temp,&rfdata[0]);//软件解密
 		rfdata[6] = temp[6];
 		fifo_puts(&Uart0Tx,rfdata,7);//入队操作
-//		for(i=0;i<7;i++)
-//		{
-//			printf("%02x",rfdata[i]);
-//		}
 	}
 }
 void send_function()

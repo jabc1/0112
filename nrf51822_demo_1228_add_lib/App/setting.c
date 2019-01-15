@@ -134,7 +134,7 @@ u8 sel_data(u8 *data)
 	u8 temp,i;
 	u8 buff2[7];
 	temp = *data;
-	if(temp == 0x04)//表示第几通道
+	if(temp == 0x01)//表示第几通道
 	{
 		if(!fifo_empty(&Uart0Tx))//有数据上报
 		{
@@ -146,7 +146,7 @@ u8 sel_data(u8 *data)
 					buff2[i] = 0xff;
 				}
 			}
-			Unpack_function(0x2a,0x04,buff2,7);//表示有数据进行标签信息出队及打包
+			Unpack_function(0x2a,temp,buff2,7);//表示有数据进行标签信息出队及打包
 		}
 		else
 		{
